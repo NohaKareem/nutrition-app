@@ -1,4 +1,4 @@
-# nutrition_app
+# Nutrition App
 
 ## Project setup
 ```
