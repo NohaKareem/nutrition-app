@@ -4,7 +4,6 @@
     <div id="nav">
       <router-view :searchResults="searchResults" />
     </div>
-    <router-view />
   </div>
 </template>
 
