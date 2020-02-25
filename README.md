@@ -1,16 +1,16 @@
 # Nutrition App
 
-## Project setup
-```
-npm install
-```
-
 ## API used
 U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.
 
 ### API documentation 
 https://fdc.nal.usda.gov/api-guide.html#bkmk-6
 
+
+## Project setup
+```
+npm install
+```
 
 ### Compiles and hot-reloads for development
 ```
