@@ -33,3 +33,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Handy refs
 * using Object.Keys to retrieve an object's properties https://stackoverflow.com/a/208020
+* hero image https://unsplash.com/photos/MZfS19xrrz0

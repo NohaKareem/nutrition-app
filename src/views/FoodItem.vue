@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <searchMenu /> 
+        <!-- <searchMenu />  -->
         <h1>{{ foodItem.description }}</h1>
         <p>fat: {{ macros.fat.value }} {{ macros.fat.unit }}</p>
         <p>protein: {{ macros.protein.value }} {{ macros.protein.unit }}</p>
@@ -13,11 +13,11 @@
     // import Tag from "@/components/Tag.vue";
     import axios from 'axios';
     import db_config from '@/db_config.js';
-    import SearchMenu from "@/components/SearchMenu.vue";
+    // import SearchMenu from "@/components/SearchMenu.vue";
     
     export default {
         name: "FoodItem",
-        components: { 'searchMenu': SearchMenu },
+        // components: { 'searchMenu': SearchMenu },
         data() {
             return {
                 foodItem: {},
