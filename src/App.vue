@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <input type="text" value="search for food item" v-model="searchStr" @keyup="foodSearch">
+    <div class="searchCon">
+      <input type="text" value="search for food item" placeholder="search for food item" v-model="searchStr" @keyup="foodSearch">
+    </div>
     <div id="nav">
       <router-view :searchResults="searchResults" />
     </div>
+    <footer>Data by U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.</footer>
   </div>
 </template>
 
@@ -27,7 +30,7 @@
         var self = this;
         axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}`)
           .then((response) => {
-            self.searchResults = response.data.foods;
+            self.searchResults = response.data;
             this.current
         })
           .catch((err) => {
@@ -39,7 +42,22 @@
 </script>  
 
 <style lang="scss">
+  .searchCon {
+    text-align: center;
+    input {
+      border: none;
+      border-bottom: solid 3px black;
+      width: 71vw; //~
+    }
+  }
   body {
     font-family: 'Raleway', sans-serif;
+  }
+  footer {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 10px;
+    color: lightslategray;
   }
 </style>

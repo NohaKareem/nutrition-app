@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Index from "../views/Index.vue";
+import SearchResults from "../views/SearchResults.vue";
 import FoodItem from "../views/FoodItem.vue";
 
 Vue.use(VueRouter);
@@ -12,7 +12,7 @@ const routes = [
   }, 
   {
     path: '/', 
-    component: Index
+    component: SearchResults
   }, 
   { 
     path: '/foodItem/:id',

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <searchMenu />
+        <searchMenu /> 
         <h1>{{ foodItem.description }}</h1>
         <p>fat: {{ macros.fat.value }} {{ macros.fat.unit }}</p>
         <p>protein: {{ macros.protein.value }} {{ macros.protein.unit }}</p>

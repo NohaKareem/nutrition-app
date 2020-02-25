@@ -1,16 +1,16 @@
 <template>
-    <div class="container">
+    <!-- <div class="container"> -->
         <li>
             <p>
                 <router-link :to="`/foodItem/${searchResult.fdcId}`">
                     {{ foodName }}
                     <!-- key~ -->
-                    {{tags}}
+                    {{ tags }}
                     <tag :tag-title="currTag" v-for="currTag in tags" :key="currTag" />
                 </router-link>
             </p>
         </li>
-    </div>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -38,6 +38,10 @@
 
 <style scoped lang="scss">
     li {
-        list-style-type: square;
+        flex: 1 1 150px;
+        list-style-type: none;
+        margin-right: 50px;
+        // border-left: 1px black solid;
+        // max-width: 100px;
     }
 </style>
