@@ -40,7 +40,7 @@
     li {
         flex: 1 1 150px;
         list-style-type: none;
-        margin-right: 50px;
+        margin: 5px 50px;
         // border-left: 1px black solid;
         // max-width: 100px;
     }

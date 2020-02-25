@@ -50,23 +50,31 @@
 </script>  
 
 <style lang="scss">
+  $desktopWidth: 768px;
   $heroHeight: 25vh;
+  $leftMargin: 15vw;
+  $heroHeightDesktop: 30vh;
   $overlayFilter: rgba(110, 44, 11, 0.29);
+  $black: #271D1D;
+  
   //mixins
   @mixin textShadow() {
     text-shadow: 0.5px 0.5px 50px rgb(110, 44, 11);
   }
+
+  body {
+    color: $black;
+  }
   .heroCon {
-    margin-top: 0px;
     color: white;
     @include textShadow; 
     margin: 0 auto;
 
     .heroTitle {
-      margin-top: 20px;
+      margin-top: 5vh;
       margin-left: 10vw;
       text-align: center;
-      font-size: 8vh;
+      font-size: 5vh;
     }
     img {
         object-fit: cover;
@@ -88,11 +96,11 @@
     .searchCon {
       margin-top: 10px;
       text-align: center;
-      margin-left: 15vw;
+      margin-left: $leftMargin;
       input {
         background: none;
         border: none;
-        font-size: 4vh; 
+        font-size: 2.5vh; 
         // font-size: 30px;
         border-bottom: solid 3px white;
         width: 70vw; //~
@@ -109,10 +117,39 @@
     font-family: 'Raleway', sans-serif;
   }
   footer {
+    max-width: 75vw;
+    margin-left: $leftMargin - 3vw;
     margin-top: 30px;
     margin-bottom: 10px;
+    position: absolute;
+    bottom: 0;
     text-align: center;
-    font-size: 10px;
+    font-size: 9px;
     color: lightslategray;
+  }
+
+  // desktop 
+  @media screen and (min-width: $desktopWidth) {
+       .heroCon {
+          margin-top: 20px;
+          img {
+            height: $heroHeightDesktop;
+          }
+          .heroTitle {
+              font-size: 10vh;
+            }
+          .searchCon {
+            input {
+              font-size: 4vh;
+            }
+          }
+          .heroOverlay {
+            margin-top: -$heroHeightDesktop;
+          }
+          .overlayDiv {
+            margin-top: -$heroHeightDesktop;
+            height: $heroHeightDesktop; 
+          }
+      }
   }
 </style>

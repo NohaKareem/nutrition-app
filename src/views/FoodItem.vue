@@ -2,10 +2,29 @@
     <div class="container">
         <!-- <searchMenu />  -->
         <h1>{{ foodItem.description }}</h1>
-        <p>fat: {{ macros.fat.value }} {{ macros.fat.unit }}</p>
-        <p>protein: {{ macros.protein.value }} {{ macros.protein.unit }}</p>
-        <p>carb: {{ macros.carb.value }} {{ macros.carb.unit }}</p>
-        <p>category: {{ foodCategory }}</p>
+        <table>
+            <!-- thead~ -->
+            <thead>
+                <tr>
+                    <td></td>
+                    <th>(g)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>fat</th>
+                    <td> {{ macros.fat.value }} {{ macros.fat.unit }}</td>
+                </tr>
+                <tr>
+                    <th>protein</th>
+                    <td> {{ macros.protein.value }} {{ macros.protein.unit }} </td>
+                </tr>
+                <tr>
+                    <th>carb</th>
+                    <td> {{ macros.carb.value }} {{ macros.carb.unit }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -124,7 +143,47 @@
 </script>
 
 <style scoped lang="scss">
+    $desktopWidth: 768px;   
+    $leftMargin: 15vw;    
+    $baseMargin:  10px; 
+    $black: #271D1D;
+
+    .container {
+        margin: 20px auto;
+        margin-left: $leftMargin;
+        max-width: 75vw;
+    }
+    h1 {
+        font-size: 3.25vh;
+        margin-bottom: $baseMargin;
+    }
+    td {
+        padding-top: $baseMargin / 2;
+        padding-left: $baseMargin / 2;
+        text-align: left;
+    }
+    thead {
+        th {
+            border-right: none;
+            border-bottom: 2px solid $black; // ~mixin
+            text-align: left;
+            padding-bottom: $baseMargin / 2;
+            padding-right: $baseMargin;
+        }
+    }
+    th {
+            font-weight: bold;
+            text-align: right;
+            padding-right: $baseMargin / 2;
+            border-right: 2px solid $black;
+    }
     li {
         list-style-type: square;
+    }
+
+    @media screen and (min-width: $desktopWidth) {
+        h1 {
+            font-size: 6vh;
+        } 
     }
 </style>

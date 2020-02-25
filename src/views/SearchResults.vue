@@ -29,6 +29,7 @@ export default {
 
 <style scoped lang="scss">
   .totalSearchResults {
+    margin: 20px 0px;
     text-align: center;
   }
   ul {
