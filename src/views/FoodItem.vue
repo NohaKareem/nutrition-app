@@ -5,11 +5,14 @@
             <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], 
             ['Protein', macrosAndMicros.macros.protein.value], 
             ['Carb', macrosAndMicros.macros.carb.value]]"
-             :colors="['#d19a17', '#8eacf3', '#8E0F0C' ]"></pie-chart>
+             :colors="['#e14f4c', '#ae201d','#d19a17' ]"></pie-chart>
             <div class="vitamins">
-                 <h2>Vitamins</h2>
                 <table>
                     <tbody>
+                        <tr>
+                            <th><h2>Vitamins</h2></th>
+                            <td></td>
+                        </tr>
                         <tr v-for="nutrient in macrosAndMicros.micros.vitamins" :key="nutrient.name">
                             <th>{{ nutrient.name }}</th>
                             <td>{{ nutrient.value }} {{ nutrient.unit }} </td>
@@ -57,7 +60,8 @@
                     }
                 };
                 this.foodItem.foodNutrients.forEach((nutrient) => {
-                    if((nutrient.nutrient.name).includes('Vitamin')) {
+                    if((nutrient.nutrient.name).includes('Vitamin') 
+                        && nutrient.nutrient.name !== "Vitamins and Other Components") {
                         macrosAndMicros.micros.vitamins.push({
                             name: nutrient.nutrient.name, 
                             value: nutrient.amount, 
@@ -147,6 +151,10 @@
         font-size: 3.25vh;
         margin-bottom: $baseMargin;
     }
+    h2 {
+        font-size: 3vh;
+        text-align: center;
+    }
     td {
         padding-top: $baseMargin / 2;
         padding-left: $baseMargin / 2;
@@ -175,5 +183,9 @@
         h1 {
             font-size: 6vh;
         } 
+        h2 {
+            font-size: 4vh;
+            text-align: right;
+        }
     }
 </style>

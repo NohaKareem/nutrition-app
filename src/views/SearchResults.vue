@@ -19,8 +19,6 @@ export default {
   }, 
   computed: {
     searchResultCount: function() {
-      console.log('cake')
-      console.log(this.searchResults.totalHits)
       return this.searchResults.totalHits;
     }
   }
