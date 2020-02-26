@@ -113,7 +113,7 @@
                                     ? this.foodItem.brandedFoodCategory
                                     : (this.foodItem[keyStr]["description"] != undefined
                                         ? this.foodItem[keyStr]["description"]
-                                        : this.foodItem[keyStr][keyStr + "Description"])); //~
+                                        : this.foodItem[keyStr][keyStr + "Description"])); 
                     }
                 });
                 return foodCategory;
