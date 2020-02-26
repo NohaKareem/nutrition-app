@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="results">
-      <router-view :searchResults="searchResults" />
+      <router-view :searchResults="searchResults" v-if="showSearch" />
     </div>
     <footer>Data by U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.</footer>
   </div>
@@ -27,15 +27,17 @@
     data() {
       return {
         searchResults: [], 
-        searchStr: ""
+        searchStr: "", 
+        showSearch: false //~
       }
     }, 
     created: function() {
       this.searchStr = "oats";
-      this.foodSearch();
+      // this.foodSearch();
     }, 
     methods: {
       foodSearch: function() {
+        this.showSearch = true;
         var self = this;
         axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}`)
           .then((response) => {
