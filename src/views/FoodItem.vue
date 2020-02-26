@@ -1,98 +1,132 @@
 <template>
     <div class="container">
         <!-- <searchMenu />  -->
+        {{ micros }}
+    
         <h1>{{ foodItem.description }}</h1>
-        <table>
-            <!-- thead~ -->
-            <thead>
-                <tr>
-                    <td></td>
-                    <th>(g)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>fat</th>
-                    <td> {{ macros.fat.value }} {{ macros.fat.unit }}</td>
-                </tr>
-                <tr>
-                    <th>protein</th>
-                    <td> {{ macros.protein.value }} {{ macros.protein.unit }} </td>
-                </tr>
-                <tr>
-                    <th>carb</th>
-                    <td> {{ macros.carb.value }} {{ macros.carb.unit }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <div id="chart"></div>
+        <div class="nutrientsGrid">
+            <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], ['Protein', macrosAndMicros.macros.protein.value], ['Carb', macrosAndMicros.macros.carb.value]]"></pie-chart>
+            <div class="vitamins">
+                 <h2>Vitamins</h2>
+                <table>
+                    <tbody>
+                        <tr v-for="nutrient in macrosAndMicros.micros.vitamins" :key="nutrient.name">
+                            <th>{{ nutrient.name }}</th>
+                            <td>{{ nutrient.value }} {{ nutrient.unit }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    // import Tag from "@/components/Tag.vue";
     import axios from 'axios';
     import db_config from '@/db_config.js';
-    import { Chart } from 'vue-chartjs';
-    // import SearchMenu from "@/components/SearchMenu.vue";
     
     export default {
         name: "FoodItem",
-        // components: { 'searchMenu': SearchMenu },
         data() {
             return {
-                foodItem: {},
+                foodItem: {}
             }
         },
         created: function () {
             this.findItem();
-            this.renderChart();
         }, 
-        computed: { //~method
-        //    micros: function() {
-        //        console.log('in micros')
-        //         let keys = Object.keys(this.foodItem);
-        //         let micros = "";
-        //         keys.forEach((key) => {
-        //             if(key.includes("nutrient") || key.includes("Nutrient")) {
-        //                 // let keyStr = key.toString();
-        //                 console.log(this.foodItem.foodNutrients)
-        //                 micros = ""; //~
-        //             }
-        //         });
-        //         return micros;
-        //    }, 
+        computed: {
+            macrosAndMicros: function () {
+               let macrosAndMicros = {
+                    macros: {
+                        fat: {
+                            value: 0, 
+                            unit: ""
+                        }, 
+                        protein: {
+                            value: 0, 
+                            unit: ""
+                        }, 
+                        carb: {
+                            value: 0, 
+                            unit: ""
+                        }
+                    }, 
+                    micros: {
+                        vitamins: []
+                    }
+                };
+                this.foodItem.foodNutrients.forEach((nutrient) => {
+                    if((nutrient.nutrient.name).includes('Vitamin')) {
+                        macrosAndMicros.micros.vitamins.push({
+                            name: nutrient.nutrient.name, 
+                            value: nutrient.amount, 
+                            unit: nutrient.nutrient.unitName
+                        });
+                    } else {
+                        switch(nutrient.nutrient.name) { 
+                            case "Total lipid (fat)":
+                                macrosAndMicros.macros.fat.value = nutrient.amount;   
+                                macrosAndMicros.macros.fat.unit = nutrient.nutrient.unitName;   
+                                break;
+                            case "Protein": 
+                                macrosAndMicros.macros.protein.value = nutrient.amount;   
+                                macrosAndMicros.macros.protein.unit = nutrient.nutrient.unitName;
+                                break;
+                            case "Carbohydrate, by difference":
+                                macrosAndMicros.macros.carb.value = nutrient.amount;        
+                                macrosAndMicros.macros.carb.unit = nutrient.nutrient.unitName;
+                                break;
+                            }
+                        }
+                    });
+                return macrosAndMicros;  
+            },
+           micros: function() {
+                let keys = Object.keys(this.foodItem);
+                let micros = "";
+                keys.forEach((key) => {
+                    if(key.includes("nutrient") || key.includes("Nutrient")) {
+                        micros += this.foodItem; //~
+                    }
+                });
+                return micros;
+           }, 
            macros: function() {
             let macros = {
                 fat: {
                     value: 0, 
+                    color: '#ff0000',
                     unit: ""
                 }, 
                 protein: {
                     value: 0, 
+                    color: '#00ff00',
                     unit: ""
                 }, 
                 carb: {
                     value: 0, 
+                    color: '#0000ff',//~
                     unit: ""
                 }
             };
             this.foodItem.foodNutrients.forEach((nutrient) => {
-                switch(nutrient.nutrient.name) { 
-                    case "Total lipid (fat)":
-                        macros.fat.value = nutrient.amount;   
-                        macros.fat.unit = nutrient.nutrient.unitName;   
-                        break;
-                    case "Protein": 
-                        macros.protein.value = nutrient.amount;   
-                        macros.protein.unit = nutrient.nutrient.unitName;
-                        break;
-                    case "Carbohydrate, by difference":
-                        macros.carb.value = nutrient.amount;        
-                        macros.carb.unit = nutrient.nutrient.unitName;
-                        break;
-                    }
+                    switch(nutrient.nutrient.name) { 
+                        case "Total lipid (fat)":
+                            macros.fat.value = nutrient.amount;   
+                            macros.fat.unit = nutrient.nutrient.unitName;   
+                            break;
+                        case "Protein": 
+                            macros.protein.value = nutrient.amount;   
+                            macros.protein.unit = nutrient.nutrient.unitName;
+                            break;
+                        case "Carbohydrate, by difference":
+                            macros.carb.value = nutrient.amount;        
+                            macros.carb.unit = nutrient.nutrient.unitName;
+                            break;
+                        }
                 });
+
             return macros;
            }, 
             /**
@@ -140,24 +174,6 @@
                     .catch((err) => {
                         console.error(err);
                 });
-            }, 
-            renderChart: function() {
-                const CHART_DIV = document.querySelector('#chart');
-                Chart.defaults.scalet.ticks.beginAtZero = true;//~
-
-                let chart = new Chart(CHART_DIV, {
-                    type: 'pie', 
-                    data: {
-                        labels: ['fat', 'protein', 'carbs'],
-                        datasets: [
-                            {
-                                data: [this.macros.fat.value, this.macros.protein.value, this.macros.carb.value], 
-                                backgroundColor: ['#f1c40f', '#e67222', '#16a085']
-                            }
-                        ]
-                    }
-                });
-                this.renderChart(chart);
             }
         }
     };
@@ -201,7 +217,10 @@
     li {
         list-style-type: square;
     }
-
+    .nutrientsGrid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     @media screen and (min-width: $desktopWidth) {
         h1 {
             font-size: 6vh;

@@ -10,8 +10,9 @@
   "dependencies": {
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
+    "d3-vs": "^1.1.1",
     "vue": "^2.6.11",
-    "vue-chartjs": "^3.5.0",
+    "vue-chartkick": "^0.6.0",
     "vue-router": "^3.1.5"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
+    "vue-chartjs": "^3.5.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

@@ -30,7 +30,11 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## Disclaimer
+This app is built for demonstrative purposes only. It is not intended for use as a reliable nutritional information resource. 
 
-## Handy refs
+## Refs
 * using Object.Keys to retrieve an object's properties https://stackoverflow.com/a/208020
 * hero image https://unsplash.com/photos/MZfS19xrrz0
+* css pie chart using Vue component https://www.youtube.com/watch?v=UieAQARU1Ho
+* adding charts to vue.js using chartkick https://www.youtube.com/watch?v=vIxaVlHdpJU
