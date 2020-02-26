@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <h1 class="hidden">Nutrition App</h1>
-    <div class="heroCon">
+    <header class="heroCon">
       <img src="/static/hero_image.jpg" alt="Heirloom tomatoes hero image">
       <div class="overlayDiv"></div>
       <div class="heroOverlay">
-        <h1 class="heroTitle">Nutrition App</h1>
+        <h1 class="heroTitle">Nutrition Finder</h1>
         <div class="searchCon">
-            <input type="text" value="search for food item" placeholder="search for food item" v-model="searchStr" @keyup="foodSearch">
+            <input type="text" placeholder="search for food item" v-model="searchStr" @keyup="foodSearch">
             <i class="fa fa-search" aria-hidden="true"></i>
         </div>
       </div>
+    </header>
+    <div class="results" v-if="showSearch">
+      <router-view :searchResults="searchResults"/>
     </div>
-    <div class="results">
-      <router-view :searchResults="searchResults" v-if="showSearch" />
+    <div class="welcomeDisplay" v-else>
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      <p>Search for a food item</p>
     </div>
     <footer>Data by U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.</footer>
   </div>
@@ -28,13 +31,9 @@
       return {
         searchResults: [], 
         searchStr: "", 
-        showSearch: false //~
+        showSearch: false //~  v-if="showSearch" 
       }
-    }, 
-    created: function() {
-      this.searchStr = "oats";
-      // this.foodSearch();
-    }, 
+    },
     methods: {
       foodSearch: function() {
         this.showSearch = true;
@@ -133,7 +132,13 @@
     font-size: 9px;
     color: lightslategray;
   }
-
+  .welcomeDisplay {
+    margin-top: 20px;
+    text-align: center;
+    .fa {
+      margin-bottom: 20px;
+    }
+  }
   // desktop 
   @media screen and (min-width: $desktopWidth) {
        .heroCon {

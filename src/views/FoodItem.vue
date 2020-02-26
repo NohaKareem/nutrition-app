@@ -1,12 +1,14 @@
 <template>
     <div class="container">
         <h1>{{ foodItem.description }}</h1>
-        <div class="nutrientsGrid">
-            <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], 
-            ['Protein', macrosAndMicros.macros.protein.value], 
-            ['Carb', macrosAndMicros.macros.carb.value]]"
-             :colors="['#e14f4c', '#ae201d','#d19a17' ]"></pie-chart>
-            <div class="vitamins">
+        <div class="nutrientsCon">
+            <div class="nutrientCon">
+                <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], 
+                    ['Protein', macrosAndMicros.macros.protein.value], 
+                    ['Carb', macrosAndMicros.macros.carb.value]]"
+                    :colors="['#e14f4c', '#ae201d','#d19a17' ]"></pie-chart>
+            </div>
+            <div class="nutrientCon vitamins">
                 <table>
                     <tbody>
                         <tr>
@@ -153,7 +155,7 @@
     }
     h2 {
         font-size: 3vh;
-        text-align: center;
+        text-align: right;
     }
     td {
         padding-top: $baseMargin / 2;
@@ -175,9 +177,16 @@
         padding-right: $baseMargin / 2;
         border-right: 2px solid $black;
     }
-    .nutrientsGrid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .nutrientsCon {
+        // display: grid;
+        // grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+        .nutrientCon.vitamins {
+            margin-top: 30px;    
+        }
     }
     @media screen and (min-width: $desktopWidth) {
         h1 {
@@ -185,7 +194,6 @@
         } 
         h2 {
             font-size: 4vh;
-            text-align: right;
         }
     }
 </style>
