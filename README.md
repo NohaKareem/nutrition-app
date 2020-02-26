@@ -38,3 +38,4 @@ This app is built for demonstrative purposes only. It is not intended for use as
 * hero image https://unsplash.com/photos/MZfS19xrrz0
 * css pie chart using Vue component https://www.youtube.com/watch?v=UieAQARU1Ho
 * adding charts to vue.js using chartkick https://www.youtube.com/watch?v=vIxaVlHdpJU
+* get route name https://stackoverflow.com/questions/53126710/how-to-get-current-name-of-route-in-vue w
