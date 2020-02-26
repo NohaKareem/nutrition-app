@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="hidden">Nutrition App</h1>
     <div class="heroCon">
       <img src="/static/hero_image.jpg" alt="Heirloom tomatoes hero image">
       <div class="overlayDiv"></div>
@@ -11,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div id="nav">
+    <div class="results">
       <router-view :searchResults="searchResults" />
     </div>
     <footer>Data by U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.</footer>
@@ -39,7 +40,7 @@
         axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}`)
           .then((response) => {
             self.searchResults = response.data;
-            this.current
+            // self.$route.router.go('/'); //~redirect to search results
         })
           .catch((err) => {
             console.error(err);
@@ -64,6 +65,9 @@
 
   body {
     color: $black;
+  }
+  .hidden {
+    display: none;
   }
   .heroCon {
     color: white;
@@ -121,7 +125,7 @@
     margin-left: $leftMargin - 3vw;
     margin-top: 30px;
     margin-bottom: 10px;
-    position: absolute;
+    // position: absolute;
     bottom: 0;
     text-align: center;
     font-size: 9px;

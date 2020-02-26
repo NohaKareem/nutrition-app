@@ -25,6 +25,7 @@
                 </tr>
             </tbody>
         </table>
+        <div id="chart"></div>
     </div>
 </template>
 
@@ -32,6 +33,7 @@
     // import Tag from "@/components/Tag.vue";
     import axios from 'axios';
     import db_config from '@/db_config.js';
+    import { Chart } from 'vue-chartjs';
     // import SearchMenu from "@/components/SearchMenu.vue";
     
     export default {
@@ -44,6 +46,7 @@
         },
         created: function () {
             this.findItem();
+            this.renderChart();
         }, 
         computed: { //~method
         //    micros: function() {
@@ -137,6 +140,24 @@
                     .catch((err) => {
                         console.error(err);
                 });
+            }, 
+            renderChart: function() {
+                const CHART_DIV = document.querySelector('#chart');
+                Chart.defaults.scalet.ticks.beginAtZero = true;//~
+
+                let chart = new Chart(CHART_DIV, {
+                    type: 'pie', 
+                    data: {
+                        labels: ['fat', 'protein', 'carbs'],
+                        datasets: [
+                            {
+                                data: [this.macros.fat.value, this.macros.protein.value, this.macros.carb.value], 
+                                backgroundColor: ['#f1c40f', '#e67222', '#16a085']
+                            }
+                        ]
+                    }
+                });
+                this.renderChart(chart);
             }
         }
     };

@@ -4,10 +4,8 @@
             <p>
                 <router-link :to="`/foodItem/${searchResult.fdcId}`">
                     {{ foodName }}
-                    <!-- key~ -->
-                    {{ tags }}
-                    <tag :tag-title="currTag" v-for="currTag in tags" :key="currTag" />
                 </router-link>
+                <tag :tagTitle="tag" v-for="tag in tags" :key="tag" />
             </p>
         </li>
     <!-- </div> -->
@@ -37,11 +35,24 @@
 </script>
 
 <style scoped lang="scss">
+  $black: #271D1D;
+
     li {
         flex: 1 1 150px;
         list-style-type: none;
         margin: 5px 50px;
         // border-left: 1px black solid;
         // max-width: 100px;
+        a {
+            text-decoration: none;
+            color: $black;
+            line-height: 25px;
+            padding: 3px;
+            border-radius: 2px;
+        }
+        a:hover {
+            background-color: $black;
+            color: white;
+        }
     }
 </style>

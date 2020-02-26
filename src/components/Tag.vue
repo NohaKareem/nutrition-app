@@ -1,13 +1,13 @@
 <template>
     <span>
-        {{ tag-title }}
+        {{ tagTitle }}
     </span>
 </template>
 
 <script>
     export default {
-    name: "Tag",
-    props: ['tag-title']
+        name: "Tag",
+        props: ['tagTitle']
     };
 </script>
 
@@ -17,6 +17,7 @@
         color: white;
         border-radius: 5px;
         padding: 2px 5px;
-        margin-right: 3px;
+        margin-right: 5px;
+        line-height: 25px;
     }
 </style>
