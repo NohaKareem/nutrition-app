@@ -38,7 +38,5 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 75vw;
-    // flex-basis: 5px;
-    // grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 </style>

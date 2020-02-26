@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <!-- <searchMenu />  -->
-        {{ micros }}
-    
         <h1>{{ foodItem.description }}</h1>
         <div class="nutrientsGrid">
-            <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], ['Protein', macrosAndMicros.macros.protein.value], ['Carb', macrosAndMicros.macros.carb.value]]"></pie-chart>
+            <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], 
+            ['Protein', macrosAndMicros.macros.protein.value], 
+            ['Carb', macrosAndMicros.macros.carb.value]]"
+             :colors="['#d19a17', '#8eacf3', '#8E0F0C' ]"></pie-chart>
             <div class="vitamins">
                  <h2>Vitamins</h2>
                 <table>
@@ -82,53 +82,6 @@
                     });
                 return macrosAndMicros;  
             },
-           micros: function() {
-                let keys = Object.keys(this.foodItem);
-                let micros = "";
-                keys.forEach((key) => {
-                    if(key.includes("nutrient") || key.includes("Nutrient")) {
-                        micros += this.foodItem; //~
-                    }
-                });
-                return micros;
-           }, 
-           macros: function() {
-            let macros = {
-                fat: {
-                    value: 0, 
-                    color: '#ff0000',
-                    unit: ""
-                }, 
-                protein: {
-                    value: 0, 
-                    color: '#00ff00',
-                    unit: ""
-                }, 
-                carb: {
-                    value: 0, 
-                    color: '#0000ff',//~
-                    unit: ""
-                }
-            };
-            this.foodItem.foodNutrients.forEach((nutrient) => {
-                    switch(nutrient.nutrient.name) { 
-                        case "Total lipid (fat)":
-                            macros.fat.value = nutrient.amount;   
-                            macros.fat.unit = nutrient.nutrient.unitName;   
-                            break;
-                        case "Protein": 
-                            macros.protein.value = nutrient.amount;   
-                            macros.protein.unit = nutrient.nutrient.unitName;
-                            break;
-                        case "Carbohydrate, by difference":
-                            macros.carb.value = nutrient.amount;        
-                            macros.carb.unit = nutrient.nutrient.unitName;
-                            break;
-                        }
-                });
-
-            return macros;
-           }, 
             /**
              * Category property title varies per food type. 
              * This method finds properties with substring "category" and sets foodCategory accordingly. 
@@ -209,13 +162,10 @@
         }
     }
     th {
-            font-weight: bold;
-            text-align: right;
-            padding-right: $baseMargin / 2;
-            border-right: 2px solid $black;
-    }
-    li {
-        list-style-type: square;
+        font-weight: bold;
+        text-align: right;
+        padding-right: $baseMargin / 2;
+        border-right: 2px solid $black;
     }
     .nutrientsGrid {
         display: grid;
