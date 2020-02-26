@@ -5,7 +5,6 @@
       <div class="overlayDiv"></div>
       <div class="heroOverlay">
         <h1 class="heroTitle">Nutrition Finder</h1>
-        <!-- hide search bar if in detailed view, which has /foodItem in its route path -->
         <div class="searchCon" v-if="isSearchPage">
             <input type="text" placeholder="search for food item" v-model="searchStr" @keyup="foodSearch">
             <i class="fa fa-search" aria-hidden="true"></i>
