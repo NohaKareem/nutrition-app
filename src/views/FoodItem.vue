@@ -193,7 +193,7 @@
         position: absolute;
         font-size: 5vh;
         margin-top: -25.5vh;
-        margin-left: -3vw;
+        left: 10px;
         color: white;
     }
     @media screen and (min-width: $desktopWidth) {
