@@ -5,7 +5,8 @@
       <div class="overlayDiv"></div>
       <div class="heroOverlay">
         <h1 class="heroTitle">Nutrition Finder</h1>
-        <div class="searchCon" v-if="isSearchPage" v-on:disableSearch="hideSearch">
+        <!-- hide search bar if in detailed view, which has /foodItem in its route path -->
+        <div class="searchCon" v-if="!routeName.includes('foodItem')">
             <input type="text" placeholder="search for food item" v-model="searchStr" @keyup="foodSearch">
             <i class="fa fa-search" aria-hidden="true"></i>
         </div>
@@ -40,6 +41,10 @@
     computed: {
         showWelcomeMessage: function() {
           return this.searchStr == "";
+        },
+        // https://stackoverflow.com/questions/53126710/how-to-get-current-name-of-route-in-vue 
+        routeName() {
+          return this.$route.fullPath;
         }
     },
     methods: {

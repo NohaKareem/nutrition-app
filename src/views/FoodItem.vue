@@ -41,7 +41,7 @@
             }
         },
         created: function () {
-            this.$parent.$emit('disableSearch');// ~remove search bar, pass up emit to app
+            this.$parent.$emit('disableSearch');// remove search bar, pass up emit to app
             this.findItem();
         }, 
         computed: {
