@@ -1,14 +1,12 @@
 <template>
-    <!-- <div class="container"> -->
-        <li>
-            <p>
-                <router-link :to="`/foodItem/${searchResult.fdcId}`">
-                    {{ foodName }}
-                </router-link>
-                <tag :tagTitle="tag" v-for="tag in tags" :key="tag" />
-            </p>
-        </li>
-    <!-- </div> -->
+    <li v-if="inSearchResults">
+        <p>
+            <router-link :to="`/foodItem/${searchResult.fdcId}`">
+                {{ foodName }}
+            </router-link>
+            <tag :tagTitle="tag" v-for="tag in tags" :key="tag" />
+        </p>
+    </li>
 </template>
 
 <script>
@@ -18,6 +16,11 @@
     name: "SearchResult",
     components: { 'tag': Tag },
     props: ['searchResult', 'searchStr'], 
+    data() {
+        return {
+            inSearchResults: true,
+        }
+    },
     computed: { 
         description: function () {
             let descr = this.searchResult.description;
@@ -35,7 +38,7 @@
 </script>
 
 <style scoped lang="scss">
-  $black: #271D1D;
+    $black: #271D1D;
 
     li {
         flex: 1 1 150px;

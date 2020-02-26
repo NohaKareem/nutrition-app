@@ -11,7 +11,7 @@
         </div>
       </div>
     </header>
-    <div class="results" v-if="showSearch">
+    <div class="results" v-if="showSearchResults">
       <router-view :searchResults="searchResults"/>
     </div>
     <div class="welcomeDisplay" v-else>
@@ -30,13 +30,17 @@
     data() {
       return {
         searchResults: [], 
-        searchStr: "", 
-        showSearch: false //~  v-if="showSearch" 
+        searchStr: ""
       }
+    },
+    computed: {
+        showSearchResults: function() {
+          return !this.searchStr == "";
+        }
     },
     methods: {
       foodSearch: function() {
-        this.showSearch = true;
+        // this.showSearchResults = true;
         var self = this;
         axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}`)
           .then((response) => {
@@ -93,7 +97,6 @@
     .overlayDiv {
       background-color: $overlayFilter;
       position: absolute;
-      /* z-index: 100; */
       margin-top: -$heroHeight;
       width: 100vw;
       height:  $heroHeight; 
@@ -106,9 +109,8 @@
         background: none;
         border: none;
         font-size: 2.5vh; 
-        // font-size: 30px;
         border-bottom: solid 3px white;
-        width: 70vw; //~
+        width: 70vw; 
         color: white;
         @include textShadow; 
         margin-top: 20px;

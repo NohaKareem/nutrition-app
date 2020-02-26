@@ -1,8 +1,9 @@
 <template>
     <div class="container">
         <h1>{{ foodItem.description }}</h1>
+        <p>{{ foodCategory }}</p>
         <div class="nutrientsCon">
-            <div class="nutrientCon">
+            <div class="nutrientCon pieChart">
                 <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], 
                     ['Protein', macrosAndMicros.macros.protein.value], 
                     ['Carb', macrosAndMicros.macros.carb.value]]"
@@ -12,7 +13,7 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th><h2>Vitamins</h2></th>
+                            <th class="nutrients">Vitamins</th>
                             <td></td>
                         </tr>
                         <tr v-for="nutrient in macrosAndMicros.micros.vitamins" :key="nutrient.name">
@@ -94,7 +95,6 @@
              * Test cases (description -> category, category type):
              *  357068 (Cheese -> Cheese, brandedFoodCategory)
              *  342643 (Celery Juice -> Vegetable juice, wweiaFoodCategoryCategory)    
-             *  ~169741 (oat flour, partially debranded -> Cereal Grains and Pasta, foodCategory.description)
              */
            foodCategory: function () {
                 let keys = Object.keys(this.foodItem);
@@ -102,13 +102,12 @@
                 keys.forEach((key) => {
                     if(key.includes("Category")) {
                         let keyStr = key.toString();
-                        
                         // foods with wweiaFoodCategoryCategory have a nested property (wweiaFoodCategoryCategoryDescription) where it includes the category name   
                         foodCategory = 
                                this.foodItem.foodCategory != undefined 
                                 ? this.foodItem.foodCategory
                                 : (this.foodItem.brandedFoodCategory != undefined 
-                                    ? this.foodItem.brandedFoodCategory 
+                                    ? this.foodItem.brandedFoodCategory
                                     : (this.foodItem[keyStr]["description"] != undefined
                                         ? this.foodItem[keyStr]["description"]
                                         : this.foodItem[keyStr][keyStr + "Description"])); //~
@@ -127,8 +126,6 @@
                         
                         // food category attribute title varies 
                         self.foodCategory = self.foodItem.foodCategory === undefined ? self.foodItem.brandedFoodCategory : self.foodItem.foodCategory;
-                        // console.log(self.getCategoryKey());
-                        // self.parseMacros(self);
                     })
                     .catch((err) => {
                         console.error(err);
@@ -140,20 +137,21 @@
 
 <style scoped lang="scss">
     $desktopWidth: 768px;   
-    $leftMargin: 15vw;    
     $baseMargin:  10px; 
     $black: #271D1D;
 
     .container {
         margin: 20px auto;
-        margin-left: $leftMargin;
-        max-width: 75vw;
+        width: 75vw;
+        padding: 2vw;
+        max-width: 100vw;
     }
     h1 {
         font-size: 3.25vh;
         margin-bottom: $baseMargin;
+        font-weight: bold;
     }
-    h2 {
+    .micros {
         font-size: 3vh;
         text-align: right;
     }
@@ -165,10 +163,9 @@
     thead {
         th {
             border-right: none;
-            border-bottom: 2px solid $black; // ~mixin
+            border-bottom: 2px solid $black; 
             text-align: left;
             padding-bottom: $baseMargin / 2;
-            padding-right: $baseMargin;
         }
     }
     th {
@@ -178,12 +175,13 @@
         border-right: 2px solid $black;
     }
     .nutrientsCon {
-        // display: grid;
-        // grid-template-columns: repeat(2, minmax(0, 1fr));
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         
+        justify-content: center;
+        align-items: center;
+
         .nutrientCon.vitamins {
             margin-top: 30px;    
         }
@@ -192,7 +190,7 @@
         h1 {
             font-size: 6vh;
         } 
-        h2 {
+        .micros {
             font-size: 4vh;
         }
     }
