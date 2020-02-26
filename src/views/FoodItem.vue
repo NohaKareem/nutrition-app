@@ -1,7 +1,9 @@
 <template>
     <div class="container">
+        <router-link :to="`/`">
+            <i class="fa fa-home" aria-hidden="true" @click="goToNextPage"></i>
+        </router-link>
         <h1>{{ foodItem.description }}</h1>
-        <p>{{ foodCategory }}</p>
         <div class="nutrientsCon">
             <div class="nutrientCon pieChart">
                 <pie-chart :data="[['Fat', macrosAndMicros.macros.fat.value], 
@@ -185,6 +187,12 @@
         .nutrientCon.vitamins {
             margin-top: 30px;    
         }
+    }
+    .fa-home {
+        position: absolute;
+        font-size: 5vh;
+        margin-top: -24vh;
+        color: white;
     }
     @media screen and (min-width: $desktopWidth) {
         h1 {

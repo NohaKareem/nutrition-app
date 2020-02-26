@@ -11,10 +11,11 @@
         </div>
       </div>
     </header>
-    <div class="results" v-if="showSearchResults">
+    
+    <div class="results">
       <router-view :searchResults="searchResults"/>
     </div>
-    <div class="welcomeDisplay" v-else>
+    <div class="welcomeDisplay" v-if="showWelcomeMessage">
       <i class="fa fa-arrow-up" aria-hidden="true"></i>
       <p>Search for a food item</p>
     </div>
@@ -30,26 +31,52 @@
     data() {
       return {
         searchResults: [], 
-        searchStr: ""
+        searchStr: "",
+        RESULTS_PER_PAGE: 50, // 50 search results are provided per page 
+        currentPage: 1 // current page in paginated search results
       }
     },
     computed: {
-        showSearchResults: function() {
-          return !this.searchStr == "";
+        showWelcomeMessage: function() {
+          return this.searchStr == "";
         }
     },
     methods: {
       foodSearch: function() {
         // this.showSearchResults = true;
         var self = this;
-        axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}`)
+        axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}&pageNumber=${this.currentPage}`)
           .then((response) => {
             self.searchResults = response.data;
+            self.currentPage = response.data.currentPage;
             // self.$route.router.go('/'); //~redirect to search results
         })
           .catch((err) => {
             console.error(err);
         });
+      }, 
+
+      // paginated search methods
+      // go to next page, if exists
+      nextPage: function() {
+        if(this.hasNextPage()) {
+          this.currentPage++;
+        }
+      },
+      // go to previous page, if exists
+      prePage: function() {
+        if(this.hasPrevPage()) {
+          this.currentPage--;
+        }
+      },
+      // check if there is a next page 
+      hasNextPage: function() {
+        let totalPages = Math.ceil(this.searchResults.totalHits / this.RESULTS_PER_PAGE); 
+        return this.currentPage < totalPages;
+      },
+       // check if there is a previous page 
+      hasPrevPage: function() {
+        return this.currentPage > 0;
       }
     }
   }
@@ -128,7 +155,6 @@
     margin-left: $leftMargin - 3vw;
     margin-top: 30px;
     margin-bottom: 10px;
-    // position: absolute;
     bottom: 0;
     text-align: center;
     font-size: 9px;
