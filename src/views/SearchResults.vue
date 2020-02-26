@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <p class="totalSearchResults" v-if="searchResultCount > 0">{{ searchResultCount }} matches found</p>
+  <div class="container" v-if="searchResultCount > 0">
+    <p class="totalSearchResults">{{ searchResultCount }} matches found</p>
     <!-- <div class="arrowKeys">
-      <i class="fa fa-arrow-left" aria-hidden="true" @click="goToNextPage"></i> 
-      <i class="fa fa-arrow-right" aria-hidden="true" @click="goToPrevPage"></i>
+      <i class="fa fa-arrow-left" aria-hidden="true" @click="goToPrevPage()"></i> 
+      <i class="fa fa-arrow-right" aria-hidden="true" @click="goToNextsPage()"></i>
     </div> -->
     <ul>
       <search-result :searchResult="result"
@@ -27,10 +27,12 @@ export default {
     }
   }, 
   methods: {
-    setEvent: function() {
-        console.log('in here')
-        this.eventData = !this.eventData;
-      },
+    goToNextPage: function() {
+      this.$emit('gotoNextPage');
+    }, 
+    goToPrevPage: function() {
+      this.$emit('gotoPrevPage');
+    }
   }
 };
 </script>

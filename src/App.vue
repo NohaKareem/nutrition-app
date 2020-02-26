@@ -5,14 +5,14 @@
       <div class="overlayDiv"></div>
       <div class="heroOverlay">
         <h1 class="heroTitle">Nutrition Finder</h1>
-        <div class="searchCon">
+        <div class="searchCon" v-if="isSearchPage" v-on:disableSearch="hideSearch">
             <input type="text" placeholder="search for food item" v-model="searchStr" @keyup="foodSearch">
             <i class="fa fa-search" aria-hidden="true"></i>
         </div>
       </div>
     </header>
     
-    <div class="results">
+    <div class="results" v-on:gotoNextPage="nextPage()" v-on:gotoPrevPage="prevPage()" >
       <router-view :searchResults="searchResults"/>
     </div>
     <div class="welcomeDisplay" v-if="showWelcomeMessage">
@@ -32,6 +32,7 @@
       return {
         searchResults: [], 
         searchStr: "",
+        isSearchPage: true,
         RESULTS_PER_PAGE: 50, // 50 search results are provided per page 
         currentPage: 1 // current page in paginated search results
       }
@@ -42,14 +43,16 @@
         }
     },
     methods: {
+      hideSearch: function() {
+        this.isSearchPage = false;
+      },
       foodSearch: function() {
-        // this.showSearchResults = true;
         var self = this;
         axios.get(`https://api.nal.usda.gov/fdc/v1/search?${db_config.API_KEY}&generalSearchInput=${this.searchStr}&pageNumber=${this.currentPage}`)
           .then((response) => {
             self.searchResults = response.data;
             self.currentPage = response.data.currentPage;
-            // self.$route.router.go('/'); //~redirect to search results
+            // self.$route.router.go('/'); //redirect to search results
         })
           .catch((err) => {
             console.error(err);
@@ -57,16 +60,19 @@
       }, 
 
       // paginated search methods
-      // go to next page, if exists
+      // go to next page (new axios call), if exists
       nextPage: function() {
         if(this.hasNextPage()) {
           this.currentPage++;
+          this.foodSearch(); 
         }
       },
-      // go to previous page, if exists
-      prePage: function() {
+      // go to previous page (new axios call), if exists
+      prevPage: function() {
+        console.log('in prev page')
         if(this.hasPrevPage()) {
           this.currentPage--;
+          this.foodSearch(); 
         }
       },
       // check if there is a next page 

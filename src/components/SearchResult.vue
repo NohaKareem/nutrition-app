@@ -44,8 +44,6 @@
         flex: 1 1 150px;
         list-style-type: none;
         margin: 5px 50px;
-        // border-left: 1px black solid;
-        // max-width: 100px;
         a {
             text-decoration: none;
             color: $black;

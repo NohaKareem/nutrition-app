@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <router-link :to="`/`">
-            <i class="fa fa-home" aria-hidden="true" @click="goToNextPage"></i>
+            <i class="fa fa-home" aria-hidden="true"></i>
         </router-link>
         <h1>{{ foodItem.description }}</h1>
         <div class="nutrientsCon">
@@ -41,6 +41,7 @@
             }
         },
         created: function () {
+            this.$parent.$emit('disableSearch');// ~remove search bar, pass up emit to app
             this.findItem();
         }, 
         computed: {
@@ -191,7 +192,8 @@
     .fa-home {
         position: absolute;
         font-size: 5vh;
-        margin-top: -24vh;
+        margin-top: -25.5vh;
+        margin-left: -3vw;
         color: white;
     }
     @media screen and (min-width: $desktopWidth) {
