@@ -8,14 +8,14 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "*",
-    redirect: '/'
-  }, 
+    redirect: "/"
+  },
   {
-    path: '/', 
+    path: "/",
     component: SearchResults
-  }, 
-  { 
-    path: '/foodItem/:id',
+  },
+  {
+    path: "/foodItem/:id",
     component: FoodItem
   }
 ];
